@@ -1,3 +1,11 @@
+The link to download dataset and checkpoint is available here:
+https://drive.google.com/drive/u/2/folders/1Ygundl-objmfiwyOczV11_JF-V1Y7qnt
+
+
+
+
+
+
 <<<<<<< HEAD
 Deepfake Detection Repo
 =======
