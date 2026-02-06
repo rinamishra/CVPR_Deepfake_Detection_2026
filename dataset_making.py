@@ -1,19 +1,6 @@
 #!/usr/bin/env python3
 """
 Build label-based dataset from sharded image directories.
-
-Source structure:
-cvpr_dfd/
-  shard_0/
-    images/
-    labels.csv
-  ...
-  shard_5/
-
-Target structure:
-dataset/
-  dataset_0/
-  dataset_1/
 """
 
 import csv
@@ -21,8 +8,12 @@ import shutil
 from pathlib import Path
 
 
-SOURCE_ROOT = Path("cvpr_dfd")
-DEST_ROOT = Path("dataset")
+# ===== ABSOLUTE PATHS (as per your system) =====
+
+BASE_DIR = Path("/home/ubuntu/Desktop/Challenge")
+
+SOURCE_ROOT = BASE_DIR / "cvpr_dfd"
+DEST_ROOT = BASE_DIR / "dataset"
 
 DATASET_0 = DEST_ROOT / "dataset_0"
 DATASET_1 = DEST_ROOT / "dataset_1"
@@ -50,7 +41,6 @@ def copy_image_safe(src: Path, dst_dir: Path, shard_name: str) -> None:
 
     dst_path = dst_dir / src.name
 
-    # Avoid overwriting files with same name from different shards
     if dst_path.exists():
         dst_path = dst_dir / f"{shard_name}_{src.name}"
 
@@ -68,7 +58,7 @@ def process_shard(shard_name: str) -> None:
 
     with labels_csv.open(newline="") as f:
         reader = csv.reader(f)
-        header = next(reader, None)
+        next(reader, None)
 
         for row in reader:
             if len(row) < 2:
